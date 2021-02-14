@@ -13,25 +13,28 @@ import com.kseyko.androidnavigation.databinding.FragmentSecondBinding
 class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private val args: SecondFragmentArgs by navArgs()
-    private var binding: FragmentSecondBinding? = null
-    private var calculation : Int = 0
+    private var fragmentSecondBinding: FragmentSecondBinding? = null
+    private var calculation: Int = 0
 
     override fun onViewCreated(
         view: View, savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentSecondBinding.bind(view)
-        var isCorrect : Boolean
-        binding.welcome.text =  if(args.name.isEmpty() )"Welcome again!"
-                                else  "Welcome ${args.name} ${args.surname}"
+        fragmentSecondBinding = binding
+        var isCorrect: Boolean
+        binding.welcome.text = if (args.name.isEmpty()) "Welcome again!"
+        else "Welcome ${args.name} ${args.surname}"
 
-        binding.calculation.text =calculateNumber()
+        binding.calculation.text = calculateNumber()
 
         binding.calculate.setOnClickListener {
             isCorrect = calculation.toString() == binding.thirdNumber.text.toString()
-            val bundle = bundleOf("calculation" to calculation,
+            val bundle = bundleOf(
+                "calculation" to calculation,
                 "name" to args.name,
-                "isCorrect" to isCorrect)
+                "isCorrect" to isCorrect
+            )
             findNavController().navigate(R.id.action_secondFragment_to_thirdFragment, bundle)
         }
 
@@ -54,7 +57,7 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        fragmentSecondBinding = null
     }
 }
 

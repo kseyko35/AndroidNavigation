@@ -1,10 +1,8 @@
 package com.kseyko.androidnavigation.ui.fragment
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kseyko.androidnavigation.R
 import com.kseyko.androidnavigation.databinding.FragmentFirstBinding
@@ -12,21 +10,27 @@ import com.kseyko.androidnavigation.databinding.FragmentFirstBinding
 
 class FirstFragment : Fragment(R.layout.fragment_first) {
 
-    private var binding : FragmentFirstBinding? = null
+    private var fragmentFirstBinding: FragmentFirstBinding? = null
 
     override fun onViewCreated(
-        view: View, savedInstanceState: Bundle?) {
+        view: View, savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
-        binding= FragmentFirstBinding.bind(view)
-        binding!!.login.setOnClickListener {
+        var binding = FragmentFirstBinding.bind(view)
+        fragmentFirstBinding = binding
+        binding = FragmentFirstBinding.bind(view)
+
+        binding.login.setOnClickListener {
             val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(
-                binding!!.name.text.toString(),
-                binding!!.surname.text.toString())
+                binding.name.text.toString(),
+                binding.surname.text.toString()
+            )
             findNavController().navigate(action)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        fragmentFirstBinding = null
     }
 }
